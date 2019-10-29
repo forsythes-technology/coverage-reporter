@@ -1,13 +1,22 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Coverage Reporter'
+description: 'Jest Test Coverage Reporter'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  project-name:  # id of input
+    description: 'Name of the project being reported on'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we we greeted you'
+    default: ''
+  gist-id:  # id of input
+    description: 'The id of the Gist the report will be saved to'
+    required: true
+    default: ''
+  access-token:  # id of input
+    description: 'Github API access token'
+    required: true
+    default: ''
+  coverage-summary:  # id of input
+    description: 'coverage summary json file'
+    required: true
+    default: ''
 runs:
-  using: 'node12'
+  using: 'node10'
   main: 'index.js'
