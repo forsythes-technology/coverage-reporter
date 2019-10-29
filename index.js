@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+
 try {
     const projectName = core.getInput('project-name');
     const gistId = core.getInput('gist-id');
@@ -9,7 +10,8 @@ try {
 
     console.log(projectName, gistId, coverageSummary);
 
-    const json = require("./coverage-summary.json");
+
+    const json = require(coverageSummary);
 
     const summary =
         `All files: \n Statements: ${json.total.statements.pct}%, ` +
