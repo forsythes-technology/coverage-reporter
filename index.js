@@ -8,6 +8,18 @@ try {
     const coverageSummary = core.getInput('coverage-summary');
 
     console.log(projectName, gistId, coverageSummary);
+
+    const json = require("./coverage-summary.json");
+
+    const summary =
+        `All files: \n Statements: ${json.total.statements.pct}%, ` +
+        `Branches: ${json.total.branches.pct}%, ` +
+        `Functions: ${json.total.functions.pct}%, ` +
+        `Lines: ${json.total.lines.pct}%`;
+
+
+    console.log("Summary", summary);
+
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
