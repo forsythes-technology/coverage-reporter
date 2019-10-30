@@ -1,7 +1,16 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('@actions/exec');
+const io = require('@actions/io');
 
+async function getFile() {
+    await io.mkdirP('temp');
+    await io.cp('./coverage-summary.json', 'temp');
+
+    const json = require('temp/coverage-summary.json');
+    console.log("FILE", json);
+
+}
 
 try {
     const projectName = core.getInput('project-name');
@@ -11,7 +20,7 @@ try {
 
     console.log(projectName, gistId, coverageSummary);
 
-
+    getFile();
     // const summary =
     //     `All files: \n Statements: ${json.total.statements.pct}%, ` +
     //     `Branches: ${json.total.branches.pct}%, ` +
