@@ -13,16 +13,8 @@ try {
     console.log(projectName, gistId, coverageSummary);
 
     // First I want to read the file
-    fs.readFile('./coverage-summary.json', function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        console.log(data);
-
-
-
-        // Or put the next step in a function and invoke it
-    });
+    var contents = fs.readFileSync('./coverage-summary.json', 'utf8');
+    console.log(contents);
     // const summary =
     //     `All files: \n Statements: ${json.total.statements.pct}%, ` +
     //     `Branches: ${json.total.branches.pct}%, ` +
