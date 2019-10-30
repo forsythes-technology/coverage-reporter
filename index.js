@@ -1,19 +1,16 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 const fs = require('fs');
 const request = require('request');
-
 
 try {
     const gistId = core.getInput('gist-id');
     const gitHubUser = core.getInput('github-user');
     const accessToken = core.getInput('access-token');
     const coverageSummary = core.getInput('coverage-summary');
-
-    console.log(projectName, gistId, coverageSummary);
+    // Get the project name from the package.json
     const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
     const projectName = packageJson.name;
-    // First I want to read the file
+    // Get the coverage summary from the summary file.
     const json = JSON.parse(fs.readFileSync(coverageSummary, 'utf8'));
     const summary =
         `All files: \n Statements: ${json.total.statements.pct}%, ` +
@@ -38,6 +35,7 @@ try {
         },
         json: true
     };
+    // Update the Gist with the coverage report.
     request(options, function(error, response, body) {
         if (error) {
             console.log(error)
@@ -48,7 +46,7 @@ try {
     });
 
     console.log("Test Covarage Summary", summary);
-
 } catch (error) {
-    // Never fail
+    // we don't want to fail builds so fail silently when possible
+    console.log("Unable to save coverage report: " + error)
 }
