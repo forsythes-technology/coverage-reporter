@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const exec = require('@actions/exec');
 
 
 try {
@@ -9,6 +10,28 @@ try {
     const coverageSummary = core.getInput('coverage-summary');
 
     console.log(projectName, gistId, coverageSummary);
+
+    let myOutput = '';
+    let myError = '';
+
+    const options = {};
+    options.listeners = {
+        stdout: (data) => {
+            myOutput += data.toString();
+        },
+        stderr: (data) => {
+            myError += data.toString();
+        }
+    };
+    options.cwd = './lib';
+    console.log(myOutput);
+    console.log(myError);
+
+
+
+
+    await exec.exec('ls');
+    await exec.exec('cat', [coverageSummary], options);
 
 
     const json = require(coverageSummary);
