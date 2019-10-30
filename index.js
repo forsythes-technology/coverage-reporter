@@ -22,8 +22,6 @@ try {
 
     const request = require('request');
     const url = `https://api.github.com/gists/${gistId}`; //
-    const package = require("./package.json");
-    const reportFilename = package.name + '.txt';
     const options = {
         url: url,
         method: 'patch',
@@ -36,7 +34,7 @@ try {
         },
         body: {
             description: 'Code Coverage Reports',
-            files: { reportFilename: { filename: reportFilename, content: summary } }
+            files: { projectName: { filename: projectName, content: summary } }
         },
         json: true
     };
