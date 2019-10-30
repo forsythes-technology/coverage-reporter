@@ -13,6 +13,10 @@ inputs:
     description: 'Github API access token'
     required: true
     default: ''
+  github-user:
+    description: 'Github User'
+    required: true
+    default: ''
   coverage-summary:  # id of input
     description: 'coverage summary json file'
     required: true
