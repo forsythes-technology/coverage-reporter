@@ -26,8 +26,8 @@ See (https://developer.github.com/v3/gists/#list-a-users-gists) for how to retri
   - name: Save Coverage Report
 	uses: forsythes-technology/coverage-reporter@master
 	with:
-	  gist-id: d7e47fd8b98ae0b0797090a21a13704c
-	  github-user: ${{ secrets.coverage_report_user }}
-	  access-token: ${{ secrets.coverage_report_key }}
-	  coverage-summary: ./coverage-summary.json
+	  gist-id: <gist-id>
+	  github-user: ${{ secrets.<github_user> }}
+	  access-token: ${{ secrets.<personal_access_key> }}
+	  coverage-summary: ./coverage/coverage-summary.json
 ```
