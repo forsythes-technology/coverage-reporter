@@ -3,13 +3,7 @@ const github = require('@actions/github');
 const exec = require('@actions/exec');
 
 
-try {
-    const projectName = core.getInput('project-name');
-    const gistId = core.getInput('gist-id');
-    const accessToken = core.getInput('access-token');
-    const coverageSummary = core.getInput('coverage-summary');
-
-    console.log(projectName, gistId, coverageSummary);
+async function getCoverageSummary(coverageSummary) {
 
     let myOutput = '';
     let myError = '';
@@ -29,21 +23,31 @@ try {
 
 
 
-
     await exec.exec('ls');
     await exec.exec('cat', [coverageSummary], options);
 
-
-    const json = require(coverageSummary);
-
-    const summary =
-        `All files: \n Statements: ${json.total.statements.pct}%, ` +
-        `Branches: ${json.total.branches.pct}%, ` +
-        `Functions: ${json.total.functions.pct}%, ` +
-        `Lines: ${json.total.lines.pct}%`;
+}
 
 
-    console.log("Summary", summary);
+try {
+    const projectName = core.getInput('project-name');
+    const gistId = core.getInput('gist-id');
+    const accessToken = core.getInput('access-token');
+    const coverageSummary = core.getInput('coverage-summary');
+
+    console.log(projectName, gistId, coverageSummary);
+
+    getCoverageSummary(coverageSummary);
+
+
+    // const summary =
+    //     `All files: \n Statements: ${json.total.statements.pct}%, ` +
+    //     `Branches: ${json.total.branches.pct}%, ` +
+    //     `Functions: ${json.total.functions.pct}%, ` +
+    //     `Lines: ${json.total.lines.pct}%`;
+
+
+    // console.log("Summary", summary);
 
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context.payload, undefined, 2)
