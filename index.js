@@ -13,16 +13,17 @@ try {
     console.log(projectName, gistId, coverageSummary);
 
     // First I want to read the file
-    var contents = fs.readFileSync('./coverage-summary.json', 'utf8');
-    console.log(contents);
-    // const summary =
-    //     `All files: \n Statements: ${json.total.statements.pct}%, ` +
-    //     `Branches: ${json.total.branches.pct}%, ` +
-    //     `Functions: ${json.total.functions.pct}%, ` +
-    //     `Lines: ${json.total.lines.pct}%`;
+    const coverageFile = fs.readFileSync(coverageSummary, 'utf8');
+    console.log(coverageFile);
+    const json = JSON.parse(coverageFile);
+    const summary =
+        `All files: \n Statements: ${json.total.statements.pct}%, ` +
+        `Branches: ${json.total.branches.pct}%, ` +
+        `Functions: ${json.total.functions.pct}%, ` +
+        `Lines: ${json.total.lines.pct}%`;
 
 
-    // console.log("Summary", summary);
+    console.log("Summary", summary);
 
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context, undefined, 2)
