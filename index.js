@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs');
+const request = require('request');
 
 
 try {
@@ -20,7 +21,6 @@ try {
         `Functions: ${json.total.functions.pct}%, ` +
         `Lines: ${json.total.lines.pct}%`;
 
-    const request = require('request');
     const url = `https://api.github.com/gists/${gistId}`; //
     const options = {
         url: url,
@@ -47,11 +47,8 @@ try {
         console.log('Status Code', response.statusCode)
     });
 
-    console.log("Summary", summary);
+    console.log("Test Covarage Summary", summary);
 
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context, undefined, 2)
-    console.log(`The event payload: ${payload}`);
 } catch (error) {
-    core.setFailed(error.message);
+    // Never fail
 }
