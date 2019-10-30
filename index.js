@@ -1,15 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const io = require('@actions/io');
+const fs = require('fs');
 
-async function getFile() {
-    await io.mkdirP('temp');
-    await io.cp('./coverage-summary.json', 'temp');
-
-    const json = require('temp/coverage-summary.json');
-    console.log("FILE", json);
-
-}
 
 try {
     const projectName = core.getInput('project-name');
@@ -19,7 +12,17 @@ try {
 
     console.log(projectName, gistId, coverageSummary);
 
-    getFile();
+    // First I want to read the file
+    fs.readFile('./coverage-summary.json', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        console.log(data);
+
+
+
+        // Or put the next step in a function and invoke it
+    });
     // const summary =
     //     `All files: \n Statements: ${json.total.statements.pct}%, ` +
     //     `Branches: ${json.total.branches.pct}%, ` +
