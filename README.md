@@ -1,23 +1,33 @@
-# Hello world JavaScript action
+# Coverage Reporter
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log. To learn how this action was built, see "[Creating a JavaScript action](https://help.github.com/en/articles/creating-a-javascript-action)" in the GitHub Help documentation.
+This action uses the GitHub api to store the results of a jest test coverage report in a Gist to be viewed later. 
 
 ## Inputs
 
-### `who-to-greet`
+### `gist-id`
+**Required** The id of Gist the report will be saved to.
+See (https://developer.github.com/v3/gists/#list-a-users-gists) for how to retrieve gist ids.
 
-**Required** The name of the person to greet. Default `"World"`.
+### `github-user`
+**Required** The GitHub user that will be used to upload the report
 
-## Outputs
+### `access-token`
+**Required** A GitHub personal access token with the 'gist' scope enabled.
 
-### `time`
+### `coverage-summary`
+**Required** The path to the coverage-summary.json file where coverage data is saved.
 
-The time we greeted you.
+
+
 
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-javascript-action@master
-with:
-  who-to-greet: 'Mona the Octocat'
+  - name: Save Coverage Report
+	uses: forsythes-technology/coverage-reporter@master
+	with:
+	  gist-id: d7e47fd8b98ae0b0797090a21a13704c
+	  github-user: ${{ secrets.coverage_report_user }}
+	  access-token: ${{ secrets.coverage_report_key }}
+	  coverage-summary: ./coverage-summary.json
 ```

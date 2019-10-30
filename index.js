@@ -5,14 +5,14 @@ const request = require('request');
 
 
 try {
-    const projectName = core.getInput('project-name');
     const gistId = core.getInput('gist-id');
     const gitHubUser = core.getInput('github-user');
     const accessToken = core.getInput('access-token');
     const coverageSummary = core.getInput('coverage-summary');
 
     console.log(projectName, gistId, coverageSummary);
-
+    const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+    const projectName = packageJson.name;
     // First I want to read the file
     const json = JSON.parse(fs.readFileSync(coverageSummary, 'utf8'));
     const summary =
